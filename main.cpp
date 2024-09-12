@@ -1,5 +1,6 @@
 #include <iostream>
 #include "includes\screen.cpp"
+#include "includes\logic.cpp"
 
 //screen
 int width;
