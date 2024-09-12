@@ -45,6 +45,14 @@ class Screen
     }
 
     public:
+
+    void ClearScreen(){
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                spaces[i][j] = ' '; 
+            }
+        }
+    }
     
     Screen(int _width, int _height, int _spacing){
         width = _width;
@@ -56,11 +64,7 @@ class Screen
             spaces[i] = new char[_width];
         } //2D array initialisation | "spaces" is a pointer to an array of pointers. Each pointer in this pointer array points to the memory address of another pointer.
 
-        for(int i = 0; i < _height; i++){
-            for(int j = 0; j < _width; j++){
-                spaces[i][j] = ' '; //Initialise all elements in the 2D array to " " so that the grid displays properly
-            }
-        }
+        ClearScreen();
 
     }//constructor
 
@@ -70,4 +74,5 @@ class Screen
     void Render(){
         DrawScreen();
     }
+
 };
