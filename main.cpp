@@ -1,11 +1,17 @@
 #include <iostream>
+#include <conio.h> //windows specific terminal controls -> _kbhit checks if a key was pressed -> _getch gets the key pressed
+#include <windows.h> //used for sleep() command
 #include "includes\screen.cpp"
-#include "includes\logic.cpp"
 
 //screen
 int width;
 int height;
 int padding;
+
+//game logic
+bool gameActive {false};
+char input {};
+int framerate {60};
 
 //----------------------------------------
 //general functions
@@ -27,10 +33,22 @@ void Hang(){//this is so the program doesn't exit straight away, the user has to
     }
 }
 
+void Logic() {
+    Sleep(100); //sleep command is in milliseconds -> 100 milliseconds = 10fps (looks better in terminal (I can't get clear screen to work))
+    if (_kbhit()) {// Check if a key was pressed
+        input = _getch();// Get the key (no need for Enter)
+    }
+}
+
 int main(){
     Initialise();
     Screen screen(width, height, padding);
+    gameActive = true;
     screen.Render();
+    while(gameActive){
+        Logic();
+        screen.Render();
+    }
     Hang();
     return 0;
 }

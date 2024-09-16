@@ -1,7 +1,7 @@
 //this file contains all the logic needed to initialise and render the grid
 
-#include <iostream>
-#include <iomanip>
+#include <iostream> //input output
+#include <iomanip> //spacing of grid
 #include <string>
 #include <cstring>
 
