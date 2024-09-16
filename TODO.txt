@@ -1,3 +1,5 @@
-switch case for input
+figure out why input doesnt work
+work out how to add onto the snakes tail
+^ once this is done, its as simple as making a fruit spawn randomly, checking if the snake head is on the same x y coords and adding 1 to the tail!
 
-make new branch for changes!!!!!!!
+BUG: GOING UP AND DOWN DOES NOT DESTROY HEAD BEFORE IT
