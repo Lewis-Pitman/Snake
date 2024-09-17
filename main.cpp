@@ -1,9 +1,11 @@
 #include <iostream>
 #include <conio.h> //windows specific terminal controls -> _kbhit checks if a key was pressed -> _getch gets the key pressed
 #include <windows.h> //used for sleep() command
-#include "includes\screen.cpp"
 
-//screen
+#include "includes\screen.cpp"
+#include "includes\variables.hpp"
+
+//grid
 int width;
 int height;
 int padding;
@@ -11,8 +13,9 @@ int padding;
 //game logic
 bool gameActive {false};
 char input {};
-int framerate {0};
-enum direction {up = 0, left = 1, right = 2, down = 3};
+int framerate {};
+
+//input
 direction playerDirection {right};
 
 //----------------------------------------
@@ -66,10 +69,11 @@ void Logic() {
         break;//if the player enters anything else, we should continue moving in the previous direction
         }
     //}
-    switch(playerDirection){
+    switch(playerDirection){ //handle actual movement
         case up:
         if(headY != 0){
             headYMemory = headY;
+            headXMemory = headX;
             headY--;
         }else{
             gameActive = false; //if the snake hits the border of the screen, the game will end
@@ -77,6 +81,7 @@ void Logic() {
         break;
         case left:
         if(headX != 0){
+            headYMemory = headY;
             headXMemory = headX;
             headX--;
         }else{
@@ -85,6 +90,7 @@ void Logic() {
         break;
         case right:
         if(headX != width - 1){
+            headYMemory = headY;
             headXMemory = headX;
             headX++;
         }else{
@@ -94,6 +100,7 @@ void Logic() {
         case down:
         if(headY != height - 1){
             headYMemory = headY;
+            headXMemory = headX;
             headY++;
         }else{
             gameActive = false; //if the snake hits the border of the screen, the game will end

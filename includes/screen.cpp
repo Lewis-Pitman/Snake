@@ -5,14 +5,22 @@
 #include <string>
 #include <cstring>
 #include <cmath>
+#include <vector>
 
-char** spaces; //the spaces in the grid that actually get printed out
+#include "variables.hpp"
 
-long headX {0}; //the head of the snake is where the tail will follow from. It starts at the centre of the grid, and moves right automatically
-long headY {0};
+//grid
+char** spaces;
 
-int headXMemory {0}; //Contains the last position the head was in. Necessary for adding onto the snake or clearing it to render the snake moving
-int headYMemory {0};
+//snake
+long headX {}; //the head of the snake is where the tail will follow from. It starts at the centre of the grid, and moves right automatically
+long headY {}; 
+
+int headXMemory {}; //Contains the last position the head was in. Necessary for adding onto the snake or clearing it to render the snake moving
+int headYMemory {};
+
+int tailLength {};
+std::vector<direction> tailMemory {}; //this will store the directions taken by the player in order to calculate the tail. We do the opposite of the player's movement
 
 class Screen
 {
@@ -68,7 +76,7 @@ class Screen
         headX = floor(width / 2);
         headY = floor(height / 2);
         headXMemory = headX;
-        headYMemory = headY; //to make sure rendering the snake works properly at the start
+        headYMemory = headY - 1; //to make sure rendering the snake works properly at the start
         spaces[headY][headX] = '#'; //set the beginning position of the player to the middle of the screen (or as close as we can get)
     }
     
