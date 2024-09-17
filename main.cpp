@@ -70,6 +70,7 @@ void Logic() {
         case up:
         if(headY != 0){
             headYMemory = headY;
+            headXMemory = headX;
             headY--;
         }else{
             gameActive = false; //if the snake hits the border of the screen, the game will end
@@ -77,6 +78,7 @@ void Logic() {
         break;
         case left:
         if(headX != 0){
+            headYMemory = headY;
             headXMemory = headX;
             headX--;
         }else{
@@ -84,7 +86,8 @@ void Logic() {
         }
         break;
         case right:
-        if(headX != width - 1){
+        if(headX != width){
+            headYMemory = headY;
             headXMemory = headX;
             headX++;
         }else{
@@ -92,8 +95,9 @@ void Logic() {
         }
         break;
         case down:
-        if(headY != height - 1){
+        if(headY != height){
             headYMemory = headY;
+            headXMemory = headX;
             headY++;
         }else{
             gameActive = false; //if the snake hits the border of the screen, the game will end

@@ -68,7 +68,7 @@ class Screen
         headX = floor(width / 2);
         headY = floor(height / 2);
         headXMemory = headX;
-        headYMemory = headY; //to make sure rendering the snake works properly at the start
+        headYMemory = headY - 1; //to make sure rendering the snake works properly at the start
         spaces[headY][headX] = '#'; //set the beginning position of the player to the middle of the screen (or as close as we can get)
     }
     
