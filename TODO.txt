@@ -3,3 +3,9 @@ work out how to add onto the snakes tail
 ^ once this is done, its as simple as making a fruit spawn randomly, checking if the snake head is on the same x y coords and adding 1 to the tail!
 
 BUG: GOING UP AND DOWN DOES NOT DESTROY HEAD BEFORE IT
+
+add a score system and display once the game is over
+
+screen width times height - 1 = maximum amount of fruits. have a counter count this up. once the count = max then we know the player has won the game 
+
+for the tail, either find a way to minus 1 from the memory or do something else
