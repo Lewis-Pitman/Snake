@@ -5,6 +5,11 @@
 #include "includes\screen.cpp"
 #include "includes\variables.hpp"
 
+
+//DEBUG!!
+bool swap {false};
+
+
 //grid
 int width;
 int height;
@@ -17,6 +22,7 @@ int framerate {};
 
 //input
 direction playerDirection {right};
+std::vector<direction> moveMemory;
 
 //----------------------------------------
 //general functions
@@ -34,6 +40,8 @@ void Initialise(){
     std::cout << "\n-----You must use the WASD keys in order to move!-----";
     Sleep(2000/framerate);
     system("cls");
+
+    moveMemory.push_back(right); //starting direction
 }
 
 void Hang(){//this is so the program doesn't exit straight away, the user has to enter -1 in order to close the program
@@ -68,7 +76,11 @@ void Logic() {
         default:
         break;//if the player enters anything else, we should continue moving in the previous direction
         }
-    //}
+        moveMemory.push_back(playerDirection);
+    /*}else{
+        moveMemory.push_back(playerDirection);
+    }
+    */
     switch(playerDirection){ //handle actual movement
         case up:
         if(headY != 0){
@@ -110,9 +122,21 @@ void Logic() {
         break;
     }
     //debug---
+    if(swap){
+        swap = false;
+        tailLength++;
+    } else{
+        swap = true;
+    }
+    std::cout << "\n Tail length: " << tailLength;
+    std::cout << "\n Move memory size: " << moveMemory.size();
+    std::cout << "\n Tail memory contents: ";
+    for(int i = 0; i < moveMemory.size(); i++){
+        std::cout << moveMemory[i] << " -> ";
+    }
     std::cout << "\n deleting " << headXMemory << headYMemory;
     std::cout << "\n delay:";
-    Sleep(1000/framerate);
+    Hang();
     system("cls"); //clear the terminal
     //-----
 }

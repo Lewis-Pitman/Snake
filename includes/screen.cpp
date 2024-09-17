@@ -19,8 +19,7 @@ long headY {};
 int headXMemory {}; //Contains the last position the head was in. Necessary for adding onto the snake or clearing it to render the snake moving
 int headYMemory {};
 
-int tailLength {};
-std::vector<direction> tailMemory {}; //this will store the directions taken by the player in order to calculate the tail. We do the opposite of the player's movement
+int tailLength {0};
 
 class Screen
 {
@@ -30,8 +29,47 @@ class Screen
     int spacing {};
 
     void UpdateSnakePosition(){
-        spaces[headYMemory][headXMemory] = ' ';
-        spaces[int(headY)][int(headX)] = '#';
+        spaces[int(headY)][int(headX)] = '#';//head
+
+        for(int i = 0; i <= tailLength; i++){
+            if(i != tailLength){ //if our tail is not the length it should be
+                switch(moveMemory[moveMemory.size() - i]){//we need to do the reverse of these directions to properly draw the tail
+                    case up://down
+                    spaces[int(headY + (i + 1))][int(headX)] = '#';
+                    break;
+                    case down://up
+                    spaces[int(headY - (i + 1))][int(headX)] = '#';
+                    break;
+                    case left://right
+                    spaces[int(headY)][int(headX + (i + 1))] = '#';
+                    break;
+                    case right://left
+                    spaces[int(headY)][int(headX - (i + 1))] = '#';
+                    break;
+                    default:
+                    break;
+                }
+            } else if(i == tailLength && tailLength != 0){//We have successfully drawn the tail to the desired length. Now we can set the tile before it to ' ' so that the snake isn't leaving parts of it's tail around the grid
+                switch(moveMemory[moveMemory.size() - i]){
+                    case up://down
+                    spaces[int(headY + (i + 1))][int(headX)] = ' ';
+                    break;
+                    case down://up
+                    spaces[int(headY - (i + 1))][int(headX)] = ' ';
+                    break;
+                    case left://right
+                    spaces[int(headY)][int(headX + (i + 1))] = ' ';
+                    break;
+                    case right://left
+                    spaces[int(headY)][int(headX - (i + 1))] = ' ';
+                    break;
+                    default:
+                    break;
+                }
+            }else{
+                break; //failsafe
+            }
+        }
     }
 
     void DrawLine(){

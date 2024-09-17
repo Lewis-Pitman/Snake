@@ -14,6 +14,7 @@ extern int padding;
 //movement
 enum direction {up = 0, left = 1, right = 2, down = 3};
 extern direction playerDirection;
+extern std::vector<direction> moveMemory;
 
 //game logic
 extern bool gameActive;
@@ -28,4 +29,3 @@ extern int headXMemory; //Contains the last position the head was in. Necessary 
 extern int headYMemory;
 
 extern int tailLength;
-extern std::vector<direction> tailMemory; //this will store the directions taken by the player in order to calculate the tail. We do the opposite of the player's movement
