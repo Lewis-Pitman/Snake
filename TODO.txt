@@ -1,6 +1,6 @@
-add a score system and display once the game is over
-
-screen width times height - 1 = maximum amount of fruits. have a counter count this up. once the count = max then we know the player has won the game 
-
 possibility for multiplayer?? 2 snakes trying to eliminate each other (like slitherio or something) with the tail length increasing 
 ^ when doing this, tidy up includes folder. put folders inside it for game logic and other functions
+
+--->>> CHANGE fruitsNeededToWin (shouldn't -1)
+--->>> snake tail collision DOES work.. update commit messages
+--->>> change main.exe to snake.exe
