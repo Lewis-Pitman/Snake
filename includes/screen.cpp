@@ -16,11 +16,11 @@ char** spaces;
 long headX {}; //the head of the snake is where the tail will follow from. It starts at the centre of the grid, and moves right automatically
 long headY {}; 
 
-int headXMemory {}; //Contains the last position the head was in. Necessary for adding onto the snake or clearing it to render the snake moving
-int headYMemory {};
-
-int tailLength {};
-std::vector<direction> tailMemory {}; //this will store the directions taken by the player in order to calculate the tail. We do the opposite of the player's movement
+int tailLength {1};
+std::vector<int> tailX;
+int tailXIncrement {};
+std::vector<int> tailY;
+int tailYIncrement {};
 
 class Screen
 {
@@ -30,8 +30,21 @@ class Screen
     int spacing {};
 
     void UpdateSnakePosition(){
-        spaces[headYMemory][headXMemory] = ' ';
-        spaces[int(headY)][int(headX)] = '#';
+        spaces[int(headY)][int(headX)] = '#';//head
+
+        tailXIncrement = tailX.size() - 1;
+        tailYIncrement = tailX.size() - 1;
+        for(int i = 0; i < tailLength; i++){
+            spaces[tailY[tailYIncrement]][tailX[tailXIncrement]] = '#';//updating tail
+            tailXIncrement--;
+            tailYIncrement--;
+        }
+        if(tailYIncrement < 0 && tailXIncrement < 0){
+            spaces[tailY[0]][tailX[0]] = ' ';
+        }else{
+            spaces[tailY[tailYIncrement]][tailX[tailXIncrement]] = ' ';//removing the tile behind the snake
+        }
+        
     }
 
     void DrawLine(){
@@ -75,8 +88,8 @@ class Screen
 
         headX = floor(width / 2);
         headY = floor(height / 2);
-        headXMemory = headX;
-        headYMemory = headY - 1; //to make sure rendering the snake works properly at the start
+        tailX.push_back(headX - 1);
+        tailY.push_back(headY - 1);
         spaces[headY][headX] = '#'; //set the beginning position of the player to the middle of the screen (or as close as we can get)
     }
     
