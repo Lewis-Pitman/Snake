@@ -25,7 +25,8 @@ extern int framerate;
 extern long headX; //the head of the snake is where the tail will follow from. It starts at the centre of the grid, and moves right automatically
 extern long headY;
 
-extern int headXMemory; //Contains the last position the head was in. Necessary for adding onto the snake or clearing it to render the snake moving
-extern int headYMemory;
-
 extern int tailLength;
+extern std::vector<int> tailX;
+extern int tailXIncrement;
+extern std::vector<int> tailY;
+extern int tailYIncrement;
