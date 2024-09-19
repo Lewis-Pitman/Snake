@@ -5,11 +5,6 @@
 #include "includes\screen.cpp"
 #include "includes\variables.hpp"
 
-
-//DEBUG!!
-bool swap {false};
-
-
 //grid
 int width;
 int height;
@@ -22,6 +17,9 @@ int framerate {};
 
 //input
 direction playerDirection {right};
+
+//misc
+bool firstFrame = true;
 
 //----------------------------------------
 //general functions
@@ -37,6 +35,7 @@ void Initialise(){
     std::cin >> framerate;
     system("cls");
     std::cout << "\n-----You must use the WASD keys in order to move!-----";
+    std::cout << "\n-----If you've chosen a large grid size, use ctrl and scroll to adjust zoom-----";
     Sleep(2000/framerate);
     system("cls");
 }
@@ -88,6 +87,7 @@ void Logic() {
                 headY--;
             }else{
                 gameActive = false; //if the snake hits the border of the screen, the game will end
+                Hang(0);
             }
             break;
             case left:
@@ -97,6 +97,7 @@ void Logic() {
                 headX--;
             }else{
                 gameActive = false;
+                Hang(0);
             }
             break;
             case right:
@@ -106,6 +107,7 @@ void Logic() {
                 headX++;
             }else{
                 gameActive = false;
+                Hang(0);
             }
             break;
             case down:
@@ -114,13 +116,15 @@ void Logic() {
                 tailY.push_back(headY);
                 headY++;
             }else{
-                gameActive = false; //if the snake hits the border of the screen, the game will end
+                gameActive = false;
+                Hang(0);
             }
             break;
             default:
             break;
             }
     system("cls");
+    firstFrame = false;
 }
 
 int main(){
@@ -131,6 +135,5 @@ int main(){
         screen.Render();
         Logic();
     }
-    Hang(0);
     return 0;
 }

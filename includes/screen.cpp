@@ -2,10 +2,9 @@
 
 #include <iostream> //input output
 #include <iomanip> //spacing of grid
-#include <string>
-#include <cstring>
-#include <cmath>
-#include <vector>
+#include <cmath> //responsible for flooring the result of divisions later on
+#include <vector> //needed to use the vector data type
+#include <cstdlib> //C standard library, responsible for the rand() function
 
 #include "variables.hpp"
 
@@ -22,6 +21,15 @@ int tailXIncrement {};
 std::vector<int> tailY;
 int tailYIncrement {};
 
+//fruit generation
+int fruitX {};
+int fruitY {};
+bool fruitCollected {true};
+bool validPosition {false};
+
+int fruitCount {0};
+int fruitNeededToWin {};
+
 class Screen
 {
     private:
@@ -29,7 +37,50 @@ class Screen
     int height {};
     int spacing {};
 
+    void GenerateFruit(){
+        validPosition = false;
+
+        while(!validPosition){
+            //using % on rand gives a random number between 0 and the number given (e.g. width) - 1
+            fruitX = rand() % width;
+            fruitY = rand() % height;
+
+            if(spaces[fruitY][fruitX] == ' '){
+                validPosition = true;
+            } else{
+                validPosition = false;
+            }
+        }
+
+        spaces[fruitY][fruitX] = '*';
+    }
+
+    void CheckCollision(){ //(with either the tail or a fruit)
+        switch(spaces[int(headY)][int(headX)]){
+            case '#':
+            gameActive = false;
+            Hang(1);
+            break;
+            case '*':
+            fruitCount++;
+            if(fruitCount == fruitNeededToWin){
+                gameActive = false;
+                Hang(2);
+            } else{
+                fruitCollected = true;
+                tailLength++;
+            }
+            break;
+            default:
+            break;
+        }
+    }
+
     void UpdateSnakePosition(){
+        if(!firstFrame){
+            CheckCollision();
+        }
+
         spaces[int(headY)][int(headX)] = '#';//head
 
         tailXIncrement = tailX.size() - 1;
@@ -58,12 +109,19 @@ class Screen
 
     void DrawScreen(){//contains the logic for drawing screen
         UpdateSnakePosition();
+
+        if(fruitCollected){
+            GenerateFruit();
+            fruitCollected = false;
+        }
+
         std::cout << "\n";
         DrawLine(); //dividing line under the number line
         std::cout << "\n";
 
         for(int i = 0; i < height; i++){
             std::cout << std::setw(spacing + 1); //move grid further away from left side
+
             for(int j = 0; j < width; j++){
                 std::cout << "|" << std::setw(spacing) << spaces[i][j] << std::setw(spacing); 
             }
@@ -71,10 +129,18 @@ class Screen
         std::cout << "|";
 
         std::cout << "\n";
-        DrawLine(); //dividing line
+        DrawLine();
+        std::cout << "\n";
+    }
+        //score counter
+        std::cout << "\n";
+        std::cout << "\n";
+        std::cout << "\n";
+        DrawLine();
         std::cout << "\n";
 
-    }
+        std::cout << "Score: " << fruitCount;
+
     }
     public:
 
@@ -90,6 +156,12 @@ class Screen
         headY = floor(height / 2);
         tailX.push_back(headX - 1);
         tailY.push_back(headY - 1);
+
+        fruitNeededToWin = (width - 1) * (height - 1);
+
+        srand(time(NULL)); //this sets the seed of rand(). Not setting a seed causes it to default to 1, therefore giving the same output each time and not being random
+        //time(null) returns the number of seconds since 00:00 GMT, January 1st 1970. This gives a new seed every time the program runs.
+
         spaces[headY][headX] = '#'; //set the beginning position of the player to the middle of the screen (or as close as we can get)
     }
     

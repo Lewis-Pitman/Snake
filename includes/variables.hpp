@@ -1,6 +1,4 @@
-//---------------HPP files are header files, storing declarations, not definitions. Useful for sharing variables among files-------------------
-//decleration: does not allocate memory | definition: allocates memory
-#pragma once //prevent definition errors by ensuring only defined once in compilation. define guard
+#pragma once //prevent definition errors by ensuring only defined once in compilation.
 #define SNAKE_GAME_HPP
 
 #include <vector>
@@ -30,3 +28,8 @@ extern std::vector<int> tailX;
 extern int tailXIncrement;
 extern std::vector<int> tailY;
 extern int tailYIncrement;
+
+//misc
+extern bool firstFrame;
+
+extern void Hang(int message);
