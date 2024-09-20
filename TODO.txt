@@ -1,6 +1,0 @@
-possibility for multiplayer?? 2 snakes trying to eliminate each other (like slitherio or something) with the tail length increasing 
-^ when doing this, tidy up includes folder. put folders inside it for game logic and other functions
-
---->>> CHANGE fruitsNeededToWin (shouldn't -1)
---->>> snake tail collision DOES work.. update commit messages
---->>> change main.exe to snake.exe

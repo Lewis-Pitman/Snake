@@ -157,7 +157,7 @@ class Screen
         tailX.push_back(headX - 1);
         tailY.push_back(headY - 1);
 
-        fruitNeededToWin = (width - 1) * (height - 1);
+        fruitNeededToWin = width * height;
 
         srand(time(NULL)); //this sets the seed of rand(). Not setting a seed causes it to default to 1, therefore giving the same output each time and not being random
         //time(null) returns the number of seconds since 00:00 GMT, January 1st 1970. This gives a new seed every time the program runs.
