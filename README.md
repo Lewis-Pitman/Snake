@@ -8,3 +8,5 @@
  - Ability to change size of grid
  - Ability to change framerate
  - Collision detection with fruits, borders of grid and tail of snake
+
+   ![SnakeGif](https://github.com/user-attachments/assets/ff4a1ad5-7966-42cd-8e6e-d14f5738f4d9)
